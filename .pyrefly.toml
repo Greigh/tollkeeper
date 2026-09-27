@@ -1,0 +1,5 @@
+python-interpreter-path = "/Users/hipskind/Coding/coding-router/.venv/bin/python"
+site-package-path = ["/Users/hipskind/Coding/coding-router/.venv/lib/python3.14/site-packages"]
+
+[search]
+path = ["router", "tests"]

@@ -1,0 +1,16 @@
+# Copy to ~/.config/router/config.toml and adjust.
+# If the file is missing, the built-in defaults apply.
+
+[policy]
+# Sunk-cost-first is the v1 routing rule: healthy subscription adapters
+# always beat metered ones. (Kept here for the day it becomes a toggle.)
+sunk_cost_first = true
+# Hard stop on real (non-dry-run) metered spend per calendar day.
+daily_cap_usd = 5.0
+
+[models]
+# Optional per-class model pins (OpenRouter ids). Empty = policy picks the
+# cheapest capable model from the live catalog.
+trivial = ""
+standard = ""
+hard = ""

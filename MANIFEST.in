@@ -1,0 +1,4 @@
+include README.md HOW_TO_USE.md DESIGN_DOC.md BUILD_TIMELINE.md LICENSE config.example.toml
+recursive-include router/app/static *
+recursive-include scripts *.py
+recursive-include tests *.py

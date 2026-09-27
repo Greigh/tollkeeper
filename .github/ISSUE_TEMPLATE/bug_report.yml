@@ -1,0 +1,29 @@
+name: Bug report
+description: Something isn't working
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting! Quota probes are best-effort against vendor endpoints — include what the provider's own UI showed if relevant.
+  - type: input
+    id: provider
+    attributes:
+      label: Provider
+      description: e.g. gemini, cursor, zed (leave blank if not provider-specific)
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you saw, and what you expected instead
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant output
+      description: Card detail text, `router cred` output, or console errors (redact tokens/cookies!)
+      render: text
