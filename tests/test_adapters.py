@@ -115,13 +115,15 @@ class TestDesktopDetection(unittest.TestCase):
             app_dir.mkdir()
             bundle = app_dir / "Cursor.app"
             bundle.mkdir()
-            # Force the adapter to think no CLI is on PATH and apps live in tmp
+            # Force the adapter to think no CLI is on PATH, apps live in tmp,
+            # and we're on macOS so .app bundles are inspected.
             with patch("router.core.desktop._app_dirs", return_value=[app_dir]):
-                with patch("router.adapters.subscriptions.shutil.which", return_value=None):
-                    adapter = CursorAdapter()
-                    self.assertTrue(adapter.is_available())
-                    self.assertIsNone(adapter._cli_path)
-                    self.assertIsNotNone(adapter._desktop_path)
+                with patch("router.core.desktop.SYSTEM", "Darwin"):
+                    with patch("router.adapters.subscriptions.shutil.which", return_value=None):
+                        adapter = CursorAdapter()
+                        self.assertTrue(adapter.is_available())
+                        self.assertIsNone(adapter._cli_path)
+                        self.assertIsNotNone(adapter._desktop_path)
 
     def test_desktop_only_probe_does_not_crash(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -130,15 +132,16 @@ class TestDesktopDetection(unittest.TestCase):
             bundle = app_dir / "Claude.app"
             bundle.mkdir()
             with patch("router.core.desktop._app_dirs", return_value=[app_dir]):
-                with patch("router.adapters.subscriptions.shutil.which", return_value=None):
-                    with patch("router.adapters.subscriptions.urllib.request.urlopen",
-                               side_effect=OSError("no network in tests")):
-                        with patch.object(ClaudeCodeAdapter, "_claude_credentials",
-                                          return_value=None):
-                            adapter = ClaudeCodeAdapter()
-                            report = adapter.probe_quota()
-                    self.assertEqual(report.state, QuotaState.UNKNOWN)
-                    self.assertIn("desktop app", report.detail.lower())
+                with patch("router.core.desktop.SYSTEM", "Darwin"):
+                    with patch("router.adapters.subscriptions.shutil.which", return_value=None):
+                        with patch("router.adapters.subscriptions.urllib.request.urlopen",
+                                   side_effect=OSError("no network in tests")):
+                            with patch.object(ClaudeCodeAdapter, "_claude_credentials",
+                                              return_value=None):
+                                adapter = ClaudeCodeAdapter()
+                                report = adapter.probe_quota()
+                        self.assertEqual(report.state, QuotaState.UNKNOWN)
+                        self.assertIn("desktop app", report.detail.lower())
 
 
 class TestDevinGetUserStatusQuota(unittest.TestCase):
