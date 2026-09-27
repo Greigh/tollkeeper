@@ -1,6 +1,6 @@
 # Tollkeeper
 
-[![CI](https://github.com/hipskind/tollkeeper/actions/workflows/ci.yml/badge.svg)](https://github.com/hipskind/tollkeeper/actions/workflows/ci.yml)
+[![CI](https://github.com/griegh/tollkeeper/actions/workflows/ci.yml/badge.svg)](https://github.com/greigh/tollkeeper/actions/workflows/ci.yml)
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](LICENSE)
 ![Python 3.14+](https://img.shields.io/badge/python-3.14+-blue.svg)
 
